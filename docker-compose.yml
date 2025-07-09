@@ -1,0 +1,68 @@
+services:
+  # RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: axur-rabbitmq
+    ports:
+      - "5672:5672"    # AMQP port
+      - "15672:15672"  # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      # UTF-8 Configuration
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - axur-network
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Aplicação Spring Boot
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: axur-backend
+    ports:
+      - "4567:4567"
+    environment:
+      # UTF-8 Configuration
+      LANG: en_US.UTF-8
+      LANGUAGE: en_US:en
+      LC_ALL: en_US.UTF-8
+      JAVA_TOOL_OPTIONS: "-Dfile.encoding=UTF-8"
+      # Application Configuration
+      BASE_URL: ${BASE_URL:-http://hiring.axreng.com/}
+      SPRING_PROFILES_ACTIVE: docker
+      # RabbitMQ Configuration
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - axur-network
+    volumes:
+      - ./logs:/usr/src/axreng/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4567/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  rabbitmq_data:
+
+networks:
+  axur-network:
+    driver: bridge

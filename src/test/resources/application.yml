@@ -1,0 +1,97 @@
+server:
+  port: 0
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: false
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+    
+  h2:
+    console:
+      enabled: false
+      
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        '[format_sql]': false
+        
+  flyway:
+    enabled: false
+    
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 60000
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1000
+          max-interval: 10000
+          multiplier: 2.0
+        acknowledge-mode: auto
+        concurrency: 1
+        max-concurrency: 5
+        prefetch: 1
+  
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: NON_NULL
+
+logging:
+  level:
+    '[com.mulato.axur]': INFO
+    '[org.springframework.amqp]': WARN
+    '[org.springframework.web]': WARN
+    '[org.hibernate.SQL]': WARN
+    '[org.hibernate.type.descriptor.sql.BasicBinder]': WARN
+    '[org.springframework.test]': DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/test-application.log
+    max-size: 10MB
+    max-history: 10
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 10
+      total-size-cap: 50MB
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+app:
+  base-url: ${BASE_URL:http://localhost:8080}
+  crawler:
+    max-pages: 100
+    timeout: 5000
+    user-agent: "Test Web Crawler 1.0"
+    delay: 10
+  search:
+    min-keyword-length: 4
+    max-keyword-length: 32
+    id-length: 8
+    max-results: 50

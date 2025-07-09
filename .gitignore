@@ -1,0 +1,55 @@
+# Logs
+logs/
+*.log
+*.log.*
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# H2 Database
+*.db
+*.trace.db
+*.lock.db
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test
+test-output/
+.test/
+
+# Spring Boot
+spring-boot-*.jar
+*.jar
+!maven-wrapper.jar
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.bak
+*.orig
+
+logs/
+.env
+.env.local
+.env.example
+.java-version
+.mvn
+

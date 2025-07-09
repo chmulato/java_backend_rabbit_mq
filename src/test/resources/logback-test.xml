@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    
+    <!-- Appender para console (apenas para testes) -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <!-- Appender para arquivo de teste -->
+    <appender name="TEST_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/test-execution.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/test-execution.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>5MB</maxFileSize>
+            <maxHistory>5</maxHistory>
+            <totalSizeCap>25MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    
+    <!-- Logger específico para testes unitários -->
+    <logger name="com.mulato.axur" level="DEBUG" additivity="false">
+        <appender-ref ref="TEST_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    
+    <!-- Logger para JUnit -->
+    <logger name="org.junit" level="DEBUG" additivity="false">
+        <appender-ref ref="TEST_FILE"/>
+    </logger>
+    
+    <!-- Logger para Spring Test -->
+    <logger name="org.springframework.test" level="DEBUG" additivity="false">
+        <appender-ref ref="TEST_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    
+    <!-- Logger para MockMvc -->
+    <logger name="org.springframework.test.web.servlet" level="DEBUG" additivity="false">
+        <appender-ref ref="TEST_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    
+    <!-- Logger para H2 (apenas em testes) -->
+    <logger name="org.h2" level="WARN" additivity="false">
+        <appender-ref ref="TEST_FILE"/>
+    </logger>
+    
+    <!-- Logger para Hibernate em testes -->
+    <logger name="org.hibernate" level="WARN" additivity="false">
+        <appender-ref ref="TEST_FILE"/>
+    </logger>
+    
+    <!-- Logger para RabbitMQ em testes -->
+    <logger name="org.springframework.amqp" level="WARN" additivity="false">
+        <appender-ref ref="TEST_FILE"/>
+    </logger>
+    
+    <!-- Root logger para testes -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="TEST_FILE"/>
+    </root>
+    
+</configuration>
