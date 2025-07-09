@@ -94,14 +94,18 @@ docker run -e BASE_URL=http://hiring.axreng.com/ -p 4567:4567 --rm axreng/backen
 
 A aplicação conta com testes completos para validar todos os requisitos:
 
-| Requisito | Classe de Teste |
-|-----------|----------------|
-| 1. API HTTP | ApiHttpControllerTest, ConformidadeDesafioTest |
-| 2. Validação do termo | HtmlContentSearchTest |
-| 3. ID da busca | IdGeneratorServiceTest |
-| 4. URL base | BaseUrlConfigurationTest, WebCrawlerSameBaseUrlTest |
-| 5. Múltiplas buscas | MultipleCrawlsTest |
-| 6. Resultados parciais | PartialResultsTest |
+```markdown
+|-------------------------|-----------------------------------------------------|
+| Requisito               | Classe de Teste                                     |
+|-------------------------|-----------------------------------------------------|
+| 1. API HTTP             | ApiHttpControllerTest, ConformidadeDesafioTest      |
+| 2. Validação do termo   | HtmlContentSearchTest                               |
+| 3. ID da busca          | IdGeneratorServiceTest                              |
+| 4. URL base             | BaseUrlConfigurationTest, WebCrawlerSameBaseUrlTest |
+| 5. Múltiplas buscas     | MultipleCrawlsTest                                  |
+| 6. Resultados parciais  | PartialResultsTest                                  |
+|-------------------------|-----------------------------------------------------|
+```
 
 ## Tecnologias Utilizadas
 
