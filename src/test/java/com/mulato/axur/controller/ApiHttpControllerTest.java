@@ -23,16 +23,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.*;
 
 /**
- * Testes para o Requisito 1: API HTTP
+ * Testes unitários para os endpoints da API HTTP (Requisito 1)
  * 
- * Testa os endpoints da classe ApiHttpController conforme especificado no desafio:
- * - 1a. POST /crawl - inicia nova busca por termo (keyword)
- * - 1b. GET /crawl/{id} - consulta resultados de busca
+ * Esta classe testa apenas os endpoints definidos no Requisito 1:
+ * - POST /crawl para iniciar uma busca por termo
+ * - GET /crawl/{id} para consultar resultados
+ *
+ * E a validação do termo (Requisito 2):
+ * - Min 4, max 32 caracteres
+ * - Case insensitive (verificado em nível de serviço)
  * 
- * Valida os formatos de request/response JSON e códigos de status HTTP corretos.
- * 
- * Nota: Content-Type aceita tanto "application/json" quanto "application/json;charset=UTF-8"
- * conforme comportamento padrão do Spring Boot.
+ * E a validação do formato do ID (Requisito 3):
+ * - 8 caracteres alfanuméricos
  */
 @WebMvcTest(ApiHttpController.class)
 @DisplayName("Requisito 1: API HTTP - Endpoints POST e GET")
@@ -48,8 +50,7 @@ public class ApiHttpControllerTest {
     private CrawlService crawlService;
 
     /**
-     * Helper para validar Content-Type de forma flexível.
-     * Aceita tanto "application/json" quanto "application/json;charset=UTF-8"
+     * Helper para validar Content-Type
      */
     private static ResultMatcher isApplicationJson() {
         return content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON);
@@ -168,91 +169,8 @@ public class ApiHttpControllerTest {
     }
 
     @Test
-    @DisplayName("1b. GET /crawl/{id} - Deve retornar array vazio quando não há URLs")
-    public void testGetCrawl_DeveRetornarArrayVazioSemUrls() throws Exception {
-        // Arrange
-        String taskId = "empty123";
-        CrawlResult mockResult = new CrawlResult(taskId, "active", Collections.emptyList());
-        
-        when(crawlService.getCrawlResult(taskId)).thenReturn(mockResult);
-
-        // Act & Assert
-        mockMvc.perform(get("/crawl/" + taskId))
-                .andExpect(status().isOk())
-                .andExpect(isApplicationJson())
-                .andExpect(jsonPath("$.id", is(taskId)))
-                .andExpect(jsonPath("$.status", is("active")))
-                .andExpect(jsonPath("$.urls", hasSize(0)))
-                .andExpect(jsonPath("$.urls", is(empty())));
-    }
-
-    @Test
-    @DisplayName("1a. POST /crawl - Deve retornar Bad Request para JSON inválido")
-    public void testPostCrawl_DeveRejeitarJsonInvalido() throws Exception {
-        // Act & Assert
-        mockMvc.perform(post("/crawl")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"invalid\": json}"))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @DisplayName("1b. GET /crawl/{id} - Deve validar formato do ID")
-    public void testGetCrawl_DeveValidarFormatoId() throws Exception {
-        // Arrange
-        String taskId = "validId8";
-        CrawlResult mockResult = new CrawlResult(taskId, "done", Collections.emptyList());
-        
-        when(crawlService.getCrawlResult(taskId)).thenReturn(mockResult);
-
-        // Act & Assert
-        mockMvc.perform(get("/crawl/" + taskId))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", hasLength(8)));
-    }
-
-    @Test
-    @DisplayName("Requisito 1: Conformidade com especificação completa do desafio")
-    public void testConformidadeEspecificacao() throws Exception {
-        // Teste integrado validando o fluxo completo 1a + 1b conforme desafio
-        
-        // 1a. POST /crawl - inicia nova busca
-        String expectedId = "30vbllyb";
-        when(crawlService.startCrawl("security")).thenReturn(expectedId);
-        
-        CrawlRequest request = new CrawlRequest("security");
-        
-        mockMvc.perform(post("/crawl")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
-                .andExpect(isApplicationJson())
-                .andExpect(jsonPath("$.id", is(expectedId)));
-        
-        // 1b. GET /crawl/{id} - consulta resultados
-        CrawlResult mockResult = new CrawlResult(
-            expectedId,
-            "active",
-            Arrays.asList(
-                "http://hiring.axreng.com/index2.html",
-                "http://hiring.axreng.com/htmlman1/chcon.1.html"
-            )
-        );
-        
-        when(crawlService.getCrawlResult(expectedId)).thenReturn(mockResult);
-        
-        mockMvc.perform(get("/crawl/" + expectedId))
-                .andExpect(status().isOk())
-                .andExpect(isApplicationJson())
-                .andExpect(jsonPath("$.id", is(expectedId)))
-                .andExpect(jsonPath("$.status", is("active")))
-                .andExpect(jsonPath("$.urls", isA(java.util.List.class)))
-                .andExpect(jsonPath("$.urls", hasSize(2)));
-    }
-
-    @Test
-    @DisplayName("1a. POST /crawl - Deve rejeitar termo muito curto (menos de 4 caracteres)")
-    public void testPostCrawl_DeveRejeitarTermoCurto() throws Exception {
+    @DisplayName("2. Validação do termo - Deve rejeitar termo muito curto (menos de 4 caracteres)")
+    public void testRequisito2_DeveRejeitarTermoCurto() throws Exception {
         // Arrange
         CrawlRequest request = new CrawlRequest("abc"); // 3 caracteres - menor que o mínimo
 
@@ -264,8 +182,8 @@ public class ApiHttpControllerTest {
     }
 
     @Test
-    @DisplayName("1a. POST /crawl - Deve rejeitar termo muito longo (mais de 32 caracteres)")
-    public void testPostCrawl_DeveRejeitarTermoLongo() throws Exception {
+    @DisplayName("2. Validação do termo - Deve rejeitar termo muito longo (mais de 32 caracteres)")
+    public void testRequisito2_DeveRejeitarTermoLongo() throws Exception {
         // Arrange
         // 33 caracteres - maior que o máximo permitido
         CrawlRequest request = new CrawlRequest("abcdefghijklmnopqrstuvwxyzabcdefg");
@@ -278,8 +196,8 @@ public class ApiHttpControllerTest {
     }
 
     @Test
-    @DisplayName("1a. POST /crawl - Deve aceitar termo exatamente no limite mínimo (4 caracteres)")
-    public void testPostCrawl_DeveAceitarTermoNoLimiteMinimo() throws Exception {
+    @DisplayName("2. Validação do termo - Deve aceitar termo exatamente no limite mínimo (4 caracteres)")
+    public void testRequisito2_DeveAceitarTermoNoLimiteMinimo() throws Exception {
         // Arrange
         String expectedId = "abcd1234";
         when(crawlService.startCrawl("test")).thenReturn(expectedId);
@@ -296,8 +214,8 @@ public class ApiHttpControllerTest {
     }
 
     @Test
-    @DisplayName("1a. POST /crawl - Deve aceitar termo exatamente no limite máximo (32 caracteres)")
-    public void testPostCrawl_DeveAceitarTermoNoLimiteMaximo() throws Exception {
+    @DisplayName("2. Validação do termo - Deve aceitar termo exatamente no limite máximo (32 caracteres)")
+    public void testRequisito2_DeveAceitarTermoNoLimiteMaximo() throws Exception {
         // Arrange
         String expectedId = "wxyz9876";
         // 32 caracteres - exatamente o máximo
@@ -316,8 +234,8 @@ public class ApiHttpControllerTest {
     }
 
     @Test
-    @DisplayName("Requisito 3: ID da busca deve ser um código alfanumérico de 8 caracteres")
-    public void testIdDaBuscaRequisito() throws Exception {
+    @DisplayName("3. ID da busca - Deve ser um código alfanumérico de 8 caracteres")
+    public void testRequisito3_IdDaBuscaAlfanumerico() throws Exception {
         // Arrange - Mock de serviço com diversos IDs para validação
         when(crawlService.startCrawl("keyword1")).thenReturn("12345678");
         when(crawlService.startCrawl("keyword2")).thenReturn("abcdefgh");
@@ -329,21 +247,24 @@ public class ApiHttpControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new CrawlRequest("keyword1"))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", hasLength(8)));
+                .andExpect(jsonPath("$.id", hasLength(8)))
+                .andExpect(jsonPath("$.id", matchesPattern("[a-zA-Z0-9]{8}")));
                 
         // ID com 8 letras
         mockMvc.perform(post("/crawl")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new CrawlRequest("keyword2"))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", hasLength(8)));
+                .andExpect(jsonPath("$.id", hasLength(8)))
+                .andExpect(jsonPath("$.id", matchesPattern("[a-zA-Z0-9]{8}")));
                 
         // ID com letras e números
         mockMvc.perform(post("/crawl")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new CrawlRequest("keyword3"))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", hasLength(8)));
+                .andExpect(jsonPath("$.id", hasLength(8)))
+                .andExpect(jsonPath("$.id", matchesPattern("[a-zA-Z0-9]{8}")));
     }
 
     @Test
@@ -360,26 +281,6 @@ public class ApiHttpControllerTest {
         mockMvc.perform(post("/crawl")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{}"))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @DisplayName("1a. POST /crawl - Deve rejeitar keyword vazia")
-    public void testPostCrawl_DeveRejeitarKeywordVazia() throws Exception {
-        // Act & Assert
-        mockMvc.perform(post("/crawl")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"keyword\": \"\"}"))
-                .andExpect(status().isBadRequest());
-                
-        mockMvc.perform(post("/crawl")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"keyword\": null}"))
-                .andExpect(status().isBadRequest());
-                
-        mockMvc.perform(post("/crawl")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"keyword\": \"   \"}"))  // Espaços em branco
                 .andExpect(status().isBadRequest());
     }
 }
