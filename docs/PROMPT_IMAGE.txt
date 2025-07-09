@@ -1,0 +1,19 @@
+Crie uma imagem ilustrativa no formato 1920x1080 pixels representando a arquitetura de uma aplicação backend moderna. A imagem deve conter os seguintes elementos visuais:
+
+Um servidor Spring Boot central que expõe uma API HTTP REST (representada com um ícone de API ou conexão HTTP).
+
+Um ícone de terminal com uma requisição POST /crawl enviando uma palavra-chave e recebendo um ID de busca.
+
+Um fluxo assíncrono com RabbitMQ entre o controlador HTTP e os workers de busca (com ícone de fila RabbitMQ).
+
+Múltiplos workers (instâncias paralelas) que fazem crawling em um site da web para encontrar termos e coletar URLs.
+
+Um banco de dados ou repositório em memória com os resultados da busca (com status "active" ou "done").
+
+Uma requisição GET /crawl/{id} retornando resultados parciais.
+
+Indicativos de uso de Java 17 e Swagger para documentação da API (ícones ou logotipos).
+
+Design moderno, técnico, com estilo flat ou isométrico, cores sóbrias (azul, cinza, branco), com texto em inglês onde necessário.
+
+A imagem deve representar uma arquitetura robusta, escalável e bem estruturada.
