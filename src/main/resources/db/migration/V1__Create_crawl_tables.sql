@@ -27,9 +27,11 @@ CREATE TABLE visited_urls (
     task_id VARCHAR(8) NOT NULL,
     url VARCHAR(1000) NOT NULL,
     visited_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (task_id) REFERENCES crawl_tasks(id) ON DELETE CASCADE,
-    UNIQUE KEY unique_task_url (task_id, url)
+    FOREIGN KEY (task_id) REFERENCES crawl_tasks(id) ON DELETE CASCADE
 );
+
+-- Criar índice único separadamente
+CREATE UNIQUE INDEX unique_task_url ON visited_urls(task_id, url);
 
 -- Índices para performance
 CREATE INDEX idx_crawl_tasks_status ON crawl_tasks(status);

@@ -35,7 +35,6 @@ VALUES
 INSERT INTO crawl_tasks (id, keyword, base_url, status, start_time, total_pages_visited, total_urls_found, created_at, updated_at) 
 VALUES ('efgh5678', 'privacy', 'http://hiring.axreng.com', 'active', 
         DATEADD('MINUTE', -30, CURRENT_TIMESTAMP), 
-        NULL, 
         15, 3, 
         DATEADD('MINUTE', -30, CURRENT_TIMESTAMP), 
         DATEADD('MINUTE', -5, CURRENT_TIMESTAMP));
