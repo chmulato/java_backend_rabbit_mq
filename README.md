@@ -4,6 +4,10 @@
 **Data:** Campo Largo, PR, 09 de Julho de 2025  
 **Para:** Axur - Teste Técnico Desenvolvedor Java Sênior
 
+## Diagrama
+
+![Diagrama de Arquitetura](./img/desafio.png)
+
 ## Descrição
 
 Aplicação Java para navegar por um website em busca de um termo fornecido pelo usuário e listar as URLs onde o termo foi
