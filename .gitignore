@@ -53,3 +53,5 @@ logs/
 .java-version
 .mvn
 
+.markdownlint.json
+.markdownlintignore

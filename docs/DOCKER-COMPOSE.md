@@ -11,7 +11,7 @@
 ### RabbitMQ
 
 - **Imagem**: `rabbitmq:3-management`
-- **Portas**: 
+- **Portas**:
   - `5672`: AMQP
   - `15672`: Management UI
 - **Credenciais**: guest/guest
@@ -53,10 +53,10 @@ docker-compose ps
 
 ## URLs
 
-- **Aplicação**: http://localhost:4567
-- **RabbitMQ Management**: http://localhost:15672
-- **Health Check**: http://localhost:4567/actuator/health
-- **API Docs**: http://localhost:4567/actuator/info
+- **Aplicação**: <http://localhost:4567>
+- **RabbitMQ Management**: <http://localhost:15672>
+- **Health Check**: <http://localhost:4567/actuator/health>
+- **API Docs**: <http://localhost:4567/actuator/info>
 
 ## Configurações UTF-8
 

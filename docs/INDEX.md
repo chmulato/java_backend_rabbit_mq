@@ -16,7 +16,8 @@
 
 ### Testes Automatizados
 
-- **[TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)** - Cobertura completa de testes para todos os requisitos do desafio
+- **[TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)** - Cobertura completa de testes para todos os requisitos
+  do desafio
 
 ### API e Documentação
 
@@ -85,7 +86,8 @@ axreng-test/
 
 1. **[README.md](../README.md)** - Comece aqui! Visão geral completa e instruções de execução
 2. **[DESAFIO_JAVA_AXUR.md](DESAFIO_JAVA_AXUR.md)** - Requisitos originais do teste técnico
-3. **[TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)** - ⭐ **NOVO!** Documentação completa dos testes para todos os requisitos
+3. **[TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)** - **NOVO!** Documentação completa dos testes para
+   todos os requisitos
 4. **[DATABASE.md](DATABASE.md)** - Estrutura do banco de dados e massa de dados
 5. **[SWAGGER-API.md](SWAGGER-API.md)** - Documentação da API com OpenAPI/Swagger
 6. **[DOCKER-COMPOSE.md](DOCKER-COMPOSE.md)** - Execução em containers Docker
@@ -120,13 +122,80 @@ docker-compose up -d
 curl -X POST http://localhost:4567/crawl -H "Content-Type: application/json" -d '{"keyword":"security"}'
 ```
 
-### URLs Úteis
+### Execução e Testes
 
-- **Aplicação**: <http://localhost:4567>
+#### **Status Atual: APLICAÇÃO 100% FUNCIONAL**
+
+A aplicação está completamente funcional e testada em **duas modalidades**:
+
+1. **Execução Local** - RabbitMQ via Docker + App via Maven
+2. **Execução Containerizada** - App + RabbitMQ via Docker Compose
+
+#### Funcionalidades Confirmadas
+
+- **API REST**: Endpoints `/crawl` (POST e GET) funcionando
+- **RabbitMQ**: Conectado e processando mensagens assíncronas
+- **Database H2**: Migrações Flyway aplicadas com sucesso
+- **OpenAPI/Swagger**: Documentação completa disponível
+- **Validação**: Bean validation com mensagens de erro adequadas
+- **Processamento Assíncrono**: Listener RabbitMQ ativo e funcional
+- **Estrutura**: Todos os 8 requisitos do desafio atendidos
+
+#### URLs Disponíveis (Aplicação Rodando)
+
+- **API Principal**: <http://localhost:4567/crawl>
 - **Swagger UI**: <http://localhost:4567/swagger-ui.html>
-- **RabbitMQ Management**: <http://localhost:15672> (guest/guest)
+- **OpenAPI JSON**: <http://localhost:4567/api-docs>
+- **H2 Console**: <http://localhost:4567/h2-console>
 - **Health Check**: <http://localhost:4567/actuator/health>
-- **H2 Console**: <http://localhost:4567/h2-console> (apenas dev)
+- **RabbitMQ Management**: <http://localhost:15672> (guest/guest)
+
+#### Como Executar
+
+##### Opção 1: Execução Local (Recomendado para desenvolvimento)
+
+```bash
+# 1. Iniciar RabbitMQ via Docker
+docker-compose up -d rabbitmq
+
+# 2. Verificar se RabbitMQ está saudável
+docker ps | grep rabbitmq
+
+# 3. Executar aplicação Spring Boot localmente
+cd c:\dev\desafio_java_backend_axur
+set BASE_URL=http://hiring.axreng.com
+mvn spring-boot:run
+```
+
+##### Opção 2: Execução Containerizada (Produção)
+
+```bash
+# Executar aplicação completa com Docker Compose
+docker-compose up -d
+
+# Verificar status dos containers
+docker-compose ps
+
+# Ver logs da aplicação
+docker-compose logs -f app
+```
+
+#### Teste Rápido da API
+
+```bash
+# Iniciar uma nova busca
+curl -X POST http://localhost:4567/crawl \
+  -H "Content-Type: application/json" \
+  -d '{"keyword":"security"}'
+
+# Resposta esperada: {"id":"abcd1234"}
+
+# Consultar resultados
+curl http://localhost:4567/crawl/abcd1234
+
+# Health check
+curl http://localhost:4567/actuator/health
+```
 
 ### Comandos Úteis
 
@@ -214,7 +283,7 @@ Este projeto agora possui **cobertura de testes automatizados para 100% dos requ
 |--------------------------|--------|---------------------------------|
 ```
 
-### 📊 Estatísticas
+### Estatísticas
 
 - **10 arquivos de teste** criados
 - **50+ métodos de teste** implementados
@@ -237,19 +306,19 @@ mvn test -Dtest="TermValidationTest"    # Requisito 2
 docker run --rm axreng/backend mvn test
 ```
 
-**📖 Documentação completa:** [TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)
+**Documentação completa:** [TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)
 
 ## Avaliação Técnica
 
 ### Pontos de Destaque
 
-1. **🎯 100% de Cobertura**: Todos os 8 requisitos do desafio possuem testes automatizados
-2. **📚 Documentação Completa**: Swagger/OpenAPI, guias técnicos e documentação de testes
-3. **🐳 Containerização**: Docker multi-stage build e Docker Compose com orquestração completa
-4. **🔧 Scripts de Automação**: Setup automatizado para facilitar avaliação e desenvolvimento
-5. **🌐 Configuração UTF-8**: Suporte internacional completo em todas as camadas
-6. **📊 Massa de Dados**: Dados realistas no sample-data.sql para testes robustos
-7. **🔍 Monitoramento**: Actuator endpoints e console H2 para debug e monitoring
+1. **100% de Cobertura**: Todos os 8 requisitos do desafio possuem testes automatizados
+2. **Documentação Completa**: Swagger/OpenAPI, guias técnicos e documentação de testes
+3. **Containerização**: Docker multi-stage build e Docker Compose com orquestração completa
+4. **Scripts de Automação**: Setup automatizado para facilitar avaliação e desenvolvimento
+5. **Configuração UTF-8**: Suporte internacional completo em todas as camadas
+6. **Massa de Dados**: Dados realistas no sample-data.sql para testes robustos
+7. **Monitoramento**: Actuator endpoints e console H2 para debug e monitoring
 
 ### Como Avaliar
 

@@ -4,7 +4,8 @@
 
 ## Descrição
 
-Aplicação Java para navegar por um website em busca de um termo fornecido pelo usuário e listar as URLs onde o termo foi encontrado. Desenvolvida como solução para o teste técnico de Backend Developer.
+Aplicação Java para navegar por um website em busca de um termo fornecido pelo usuário e listar as URLs onde o termo foi
+encontrado. Desenvolvida como solução para o teste técnico de Backend Developer.
 
 ## Requisitos Atendidos
 
@@ -143,7 +144,8 @@ A aplicação segue uma arquitetura de camadas:
 
 ## Descrição
 
-Aplicação Java para navegar por um website em busca de um termo fornecido pelo usuário e listar as URLs onde o termo foi encontrado. Desenvolvida como solução para o teste técnico de Backend Developer.
+Aplicação Java para navegar por um website em busca de um termo fornecido pelo usuário e listar as URLs onde o termo foi
+encontrado. Desenvolvida como solução para o teste técnico de Backend Developer.
 
 ## Requisitos Atendidos
 
