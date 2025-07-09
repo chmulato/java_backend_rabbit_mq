@@ -132,9 +132,20 @@ public class WebCrawlerService {
         try {
             URI uri = new URI(url);
             URI baseUri = new URI(baseUrl);
-            return uri.getHost().equals(baseUri.getHost()) && 
+            
+            String uriHost = uri.getHost();
+            String baseUriHost = baseUri.getHost();
+            String uriScheme = uri.getScheme();
+            String baseUriScheme = baseUri.getScheme();
+            
+            // Se qualquer host ou scheme for null, as URLs não são da mesma base
+            if (uriHost == null || baseUriHost == null || uriScheme == null || baseUriScheme == null) {
+                return false;
+            }
+            
+            return uriHost.equals(baseUriHost) && 
                    uri.getPort() == baseUri.getPort() &&
-                   uri.getScheme().equals(baseUri.getScheme());
+                   uriScheme.equals(baseUriScheme);
         } catch (URISyntaxException e) {
             return false;
         }
