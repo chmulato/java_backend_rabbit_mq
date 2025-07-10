@@ -14,11 +14,6 @@
 
 - **[DATABASE.md](DATABASE.md)** - Estrutura completa do banco, migrações e massa de dados
 
-### Testes Automatizados
-
-- **[TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)** - Cobertura completa de testes para todos os requisitos
-  do desafio
-
 ### API e Documentação
 
 - **[SWAGGER-API.md](SWAGGER-API.md)** - Documentação da API com OpenAPI/Swagger
@@ -26,10 +21,6 @@
 ### Containerização
 
 - **[DOCKER-COMPOSE.md](DOCKER-COMPOSE.md)** - Guia completo do Docker Compose
-
-### Configurações
-
-- **[UTF8-CONFIG.md](UTF8-CONFIG.md)** - Configurações UTF-8 em todas as camadas
 
 ### Scripts de Automação
 
@@ -47,11 +38,9 @@ axreng-test/
 ├── docs/                               # Documentações técnicas
 │   ├── INDEX.md                        # Este arquivo - índice de documentações
 │   ├── DESAFIO_JAVA_AXUR.md            # Requisitos originais do teste técnico
-│   ├── TESTES-COBERTURA-COMPLETA.md    # Cobertura completa de testes (NOVO)
 │   ├── DATABASE.md                     # Estrutura do banco e massa de dados
 │   ├── SWAGGER-API.md                  # Documentação da API OpenAPI/Swagger
 │   ├── DOCKER-COMPOSE.md               # Guia completo do Docker Compose
-│   └── UTF8-CONFIG.md                  # Configurações UTF-8 em todas as camadas
 ├── src/                                # Código fonte
 │   ├── main/java/                      # Código principal da aplicação
 │   └── test/java/                      # Testes automatizados (100% cobertura)
@@ -60,10 +49,6 @@ axreng-test/
 │       ├── model/                      # Testes de geração de ID (Requisito 3)
 │       ├── service/                    # Testes de serviços (Requisitos 4,5,6)
 │       └── integration/                # Testes de integração (Requisitos 7,8)
-├── scripts/                            # Scripts de automação
-│   ├── setup-dev.sh / setup-dev.ps1   # Setup completo do ambiente
-│   ├── build-docker.sh / build-docker.ps1  # Build das imagens Docker
-│   └── manage-data.sh / manage-data.ps1     # Gerenciamento da massa de dados
 ├── docker-compose.yml                  # Orquestração Docker principal
 ├── Dockerfile                          # Build da aplicação Java
 └── pom.xml                             # Dependências e configuração Maven
