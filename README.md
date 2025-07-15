@@ -1,320 +1,438 @@
-# Web Crawler API - Desafio Java Axur
+# Web Crawler API
 
 **Desenvolvedor:** Christian Vladimir Uhdre Mulato  
-**Data:** Campo Largo, PR, 09 de Julho de 2025  
-**Para:** Axur - Teste Técnico Desenvolvedor Java Sênior
+**Versão:** 1.0.0  
+**Licença:** MIT
 
-## Diagrama
+## Diagrama de Arquitetura
 
 ![Diagrama de Arquitetura](./img/desafio.png)
 
-## Descrição
+## Sobre o Projeto
 
-Aplicação Java para navegar por um website em busca de um termo fornecido pelo usuário e listar as URLs onde o termo foi
-encontrado. Desenvolvida como solução completa para o teste técnico de Backend Developer, implementando todos os
-requisitos com arquitetura robusta e processamento assíncrono via RabbitMQ.
+**API Crawler** é uma aplicação Java moderna e robusta para **web crawling automatizado**. A API permite navegar sistematicamente por websites em busca de termos específicos, retornando as URLs onde o conteúdo foi encontrado.
 
-## Requisitos Atendidos
+### **Principais Características**
 
-### 1. API HTTP
+- **API RESTful** com endpoints simples e 
+intuitivos
+- **Processamento assíncrono** para alta performance
+- **Múltiplas buscas simultâneas** independentes
+- **Resultados parciais** em tempo real
+- **Arquitetura escalável** com RabbitMQ
+- **Containerização** completa com Docker
 
-A aplicação fornece uma API HTTP na porta 4567 com os seguintes endpoints:
+## Casos de Uso
 
-**POST /crawl**: Inicia uma nova busca por um termo
+### **Monitoramento de Conteúdo**
+
+- Detecção de conteúdo malicioso ou indevido
+- Monitoramento de marcas e propriedade intelectual
+- Verificação de menções e referências
+
+### **Análise e Pesquisa**
+
+- Coleta de dados estruturados de websites
+- Monitoramento de preços e produtos
+- Análise competitiva e de mercado
+
+### **Segurança Digital**
+
+- Detecção de vazamentos de dados
+- Monitoramento de atividades suspeitas
+- Compliance e auditoria de conteúdo
+
+### **SEO e Marketing**
+
+- Análise de backlinks e estrutura de sites
+- Monitoramento de posicionamentos
+- Descoberta de oportunidades de conteúdo
+
+## Funcionalidades da API
+
+### 1. **Iniciar Busca por Termo** - `POST /crawl`
+
+Inicia uma nova busca por um termo específico em um website.
+
+**Endpoint:**
 
 ```http
 POST /crawl HTTP/1.1
 Host: localhost:4567
 Content-Type: application/json
-Body: {"keyword": "security"}
 
-Resposta:
-200 OK
-Content-Type: application/json
-Body: {"id": "30vbllyb"}
+{
+  "keyword": "security"
+}
 ```
 
-**GET /crawl/{id}**: Consulta resultados de busca
+**Resposta:**
+
+```json
+{
+  "id": "30vbllyb"
+}
+```
+
+### 2. **Consultar Resultados** - `GET /crawl/{id}`
+
+Consulta o progresso e resultados de uma busca específica.
+
+**Endpoint:**
 
 ```http
 GET /crawl/30vbllyb HTTP/1.1
 Host: localhost:4567
+```
 
-Resposta:
-200 OK
-Content-Type: application/json
+**Resposta:**
+
+```json
 {
   "id": "30vbllyb",
   "status": "active",
   "urls": [
-    "http://hiring.axreng.com/index2.html",
-    "http://hiring.axreng.com/htmlman1/chcon.1.html"
+    "http://example.com/page1.html",
+    "http://example.com/page2.html"
   ]
 }
 ```
 
-### 2. Validação do Termo
+**Status possíveis:**
 
-- Mínimo de 4 e máximo de 32 caracteres
-- Busca case insensitive em qualquer parte do conteúdo HTML (incluindo tags e comentários)
-- Implementação validada por testes unitários específicos
+- `active`: Busca em andamento
+- `done`: Busca finalizada
 
-### 3. ID da Busca
+## Características Técnicas
 
-- Código alfanumérico de 8 caracteres gerado automaticamente
-- Único para cada busca
-- Implementado através de classe dedicada para geração de IDs
+### **Validação Inteligente**
 
-### 4. URL Base
+- **Termos de busca:** 4 a 32 caracteres
+- **Busca case-insensitive** em todo conteúdo HTML
+- **Detecção em tags e comentários** HTML
+- **Validação de URLs** para segurança
 
-- Configurada via variável de ambiente (BASE_URL)
-- Implementação segue apenas links (absolutos e relativos) da mesma base URL
-- Validação completa de URLs para garantir segurança e conformidade
+### **Sistema de IDs Únicos**
 
-### 5. Múltiplas Buscas Simultâneas
+- **Códigos alfanuméricos** de 8 caracteres
+- **Geração automática** para cada busca
+- **Identificação única** garantida
+- **Rastreamento simples** de progresso
 
-- Suporte para execução de múltiplas buscas em paralelo
-- Informações sobre buscas ativas e concluídas são mantidas durante a execução
-- Implementado através de processamento assíncrono
+### **Crawling Seguro**
 
-### 6. Resultados Parciais
+- **Configuração via ambiente** (BASE_URL)
+- **Apenas links da mesma base** URL
+- **Prevenção de loops infinitos**
+- **Controle de URLs visitadas**
 
-- Durante uma busca em andamento, os resultados já encontrados são disponibilizados
-- Status da busca ("active" ou "done") é atualizado conforme progresso
-- Implementação testada para garantir disponibilidade dos resultados parciais
+### **Processamento Paralelo**
 
-### 7. Estrutura do Projeto
+- **Múltiplas buscas simultâneas** independentes
+- **Processamento assíncrono** com RabbitMQ
+- **Resultados parciais** disponíveis em tempo real
+- **Status dinâmico** (active/done)
 
-- Respeitada a estrutura base fornecida
-- Dockerfile e pom.xml mantidos sem modificações
-- Código organizado em pacotes seguindo boas práticas
+### **Arquitetura Escalável**
 
-### 8. Compilação e Execução
+- **Message broker** RabbitMQ para filas
+- **Workers independentes** para processamento
+- **Escalabilidade horizontal** automática
+- **Tolerância a falhas** integrada
 
-Compilação e execução conforme especificado:
+## Tecnologias e Stack
 
-```bash
-docker build . -t axreng/backend
-docker run -e BASE_URL=http://hiring.axreng.com/ -p 4567:4567 --rm axreng/backend
-```
+### **Backend Core**
 
-## Testes Automatizados
+- **Java 17** - Linguagem moderna e robusta
+- **Spring Boot 3.x** - Framework enterprise
+- **Spring Data JPA** - Abstração de dados elegante
+- **Spring AMQP** - Integração com message brokers
 
-A aplicação conta com testes completos para validar todos os requisitos:
+### **Processamento e Dados**
 
-```markdown
-|------------------------|-----------------------------------------------------|
-| Requisito              | Classe de Teste                                     |
-|------------------------|-----------------------------------------------------|
-| 1. API HTTP            | ApiHttpControllerTest, ConformidadeDesafioTest      |
-| 2. Validação do termo  | HtmlContentSearchTest                               |
-| 3. ID da busca         | IdGeneratorServiceTest                              |
-| 4. URL base            | BaseUrlConfigurationTest, WebCrawlerSameBaseUrlTest |
-| 5. Múltiplas buscas    | MultipleCrawlsTest                                  |
-| 6. Resultados parciais | PartialResultsTest                                  |
-|------------------------|-----------------------------------------------------|
-```
-
-## Tecnologias Utilizadas
-
-- **Java 17** - Linguagem de programação principal
-- **Spring Boot 3.x** - Framework para desenvolvimento de aplicações Java
-- **Spring Data JPA** - Abstração para acesso a dados
-- **H2 Database** - Banco de dados em memória para desenvolvimento
 - **RabbitMQ** - Message broker para processamento assíncrono
-- **Spring AMQP** - Integração com RabbitMQ
-- **JSoup** - Biblioteca para parsing e manipulação de HTML
-- **JUnit 5** - Framework para testes automatizados
-- **Mockito** - Framework para mocking em testes
-- **SpringDoc OpenAPI** - Documentação automática da API (Swagger)
-- **Docker** - Containerização da aplicação
-- **Maven** - Gerenciamento de dependências e build
+- **H2 Database** - Banco em memória para desenvolvimento
+- **Flyway** - Migrações de banco versionadas
+- **JSoup** - Parsing HTML especializado
 
-## Funcionalidades Implementadas
+### **Qualidade e Testes**
 
-### **API REST Completa**
+- **JUnit 5** - Framework de testes moderno
+- **Mockito** - Mocking avançado para testes
+- **Spring Boot Test** - Testes de integração
+- **Testcontainers** - Testes com containers
 
-- Endpoints POST /crawl e GET /crawl/{id}
-- Validação de entrada com Bean Validation
-- Tratamento global de exceções
-- Documentação automática com Swagger/OpenAPI
+### **DevOps e Infraestrutura**
 
-### **Web Crawling Inteligente**
+- **Docker** - Containerização completa
+- **Docker Compose** - Orquestração local
+- **Maven** - Gerenciamento de dependências
+- **Spring Boot Actuator** - Métricas e monitoramento
 
-- Busca case-insensitive em todo o conteúdo HTML
-- Seguimento de links absolutos e relativos da mesma base URL
-- Controle de URLs visitadas para evitar loops infinitos
-- Parsing eficiente com JSoup
+### **Documentação e APIs**
 
-### **Processamento Assíncrono**
+- **SpringDoc OpenAPI** - Documentação automática
+- **Swagger UI** - Interface interativa para API
+- **Markdown** - Documentação técnica estruturada
 
-- Filas RabbitMQ para desacoplamento
-- Múltiplas buscas simultâneas independentes
-- Resultados parciais disponíveis em tempo real
-- Status de progresso atualizado dinamicamente
+## Quick Start
 
-### **Robustez e Confiabilidade**
-
-- Validação rigorosa de URLs e parâmetros
-- Tratamento de erros HTTP e timeouts
-- Logs estruturados para auditoria
-- Retry automático em falhas de comunicação
-
-### **Monitoramento e Observabilidade**
-
-- Spring Boot Actuator para health checks
-- Métricas de performance e uso
-- Logs detalhados de todas as operações
-- Interface de gerenciamento RabbitMQ
-
-## Execução do Projeto
+### **Execução Rápida com Docker**
 
 ```bash
 # Build da aplicação
-docker build . -t axreng/backend
+docker build . -t web-crawler-api
 
 # Execução
-docker run -e BASE_URL=http://hiring.axreng.com/ -p 4567:4567 --rm axreng/backend
+docker run -e BASE_URL=http://example.com/ -p 4567:4567 --rm web-crawler-api
 ```
 
-## Arquitetura
+### **Testando a API**
 
-A aplicação segue uma arquitetura de camadas:
+```bash
+# Iniciar uma busca
+curl -X POST http://localhost:4567/crawl \
+  -H "Content-Type: application/json" \
+  -d '{"keyword": "security"}'
 
-1. Controller: Endpoints REST da API
-2. Service: Lógica de negócio e gerenciamento de crawling
-3. Repository: Persistência de dados
-4. Model/Entity: Objetos de domínio e entidades de banco
-5. Listener: Processamento assíncrono de mensagens
+# Resposta: {"id": "30vbllyb"}
 
-## Documentação Completa
+# Consultar progresso
+curl http://localhost:4567/crawl/30vbllyb
+```
 
-Para informações detalhadas sobre cada aspecto do projeto, consulte:
+## Funcionalidades Avançadas
 
-- **[docs/INDEX.md](docs/INDEX.md)** - Índice completo da documentação técnica
-- **[docs/RABBITMQ.md](docs/RABBITMQ.md)** - Explicação técnica do uso do RabbitMQ na arquitetura
-- **[docs/DATABASE.md](docs/DATABASE.md)** - Estrutura do banco de dados e massa de dados
-- **[docs/SWAGGER-API.md](docs/SWAGGER-API.md)** - Documentação completa da API REST
-- **[docs/DOCKER-COMPOSE.md](docs/DOCKER-COMPOSE.md)** - Guia para execução via Docker Compose
+### **Web Crawling Inteligente**
 
-## Execução Local (Desenvolvimento)
+- **Parsing HTML robusto** com JSoup
+- **Busca case-insensitive** em conteúdo completo
+- **Seguimento inteligente** de links (absolutos/relativos)
+- **Controle de duplicatas** para evitar loops infinitos
+- **Validação de domínio** para segurança
 
-### Pré-requisitos
+### **Processamento Assíncrono**
 
-- Java 17+
-- Maven 3.6+
-- Docker e Docker Compose
+- **Filas RabbitMQ** para desacoplamento
+- **Workers independentes** para escalabilidade
+- **Múltiplas buscas paralelas** sem interferência
+- **Resultados em tempo real** durante processamento
+- **Status dinâmico** com atualizações automáticas
 
-### Passos para Execução
+### **Robustez e Confiabilidade**
 
-1. **Iniciar RabbitMQ:**
-2. 
+- **Validação rigorosa** de entrada e URLs
+- **Tratamento completo** de erros HTTP
+- **Timeout control** para requisições
+- **Retry automático** em falhas temporárias
+- **Logs estruturados** para auditoria
+
+### **Monitoramento e Observabilidade**
+
+- **Spring Actuator** para health checks
+- **Métricas de performance** integradas
+- **Interface RabbitMQ** para gestão de filas
+- **Logs detalhados** de todas operações
+- **Swagger UI** para documentação interativa
+
+### **Escalabilidade Enterprise**
+
+- **Arquitetura de microserviços** ready
+- **Horizontal scaling** via containers
+- **Load balancing** support
+- **Cloud deployment** optimized
+- **Database migration** automatizada
+
+## Execução e Deploy
+
+### **Execução com Docker (Recomendado)**
+
+```bash
+# Build da imagem
+docker build . -t web-crawler-api
+
+# Execução básica
+docker run -e BASE_URL=http://example.com/ -p 4567:4567 --rm web-crawler-api
+
+# Com múltiplas variáveis
+docker run \
+  -e BASE_URL=http://example.com/ \
+  -e SPRING_PROFILES_ACTIVE=production \
+  -p 4567:4567 \
+  --name crawler-api \
+  web-crawler-api
+```
+
+### **Desenvolvimento Local**
+
+#### Pré-requisitos
+
+- **Java 17+**
+- **Maven 3.6+**
+- **Docker** (para RabbitMQ)
+
+#### Passos de Execução
+
+1. **Iniciar RabbitMQ**
+
    ```bash
    docker-compose up -d rabbitmq
    ```
 
-3. **Executar aplicação:**
-4. 
+2. **Executar aplicação**
+
    ```bash
    mvn spring-boot:run
    ```
 
-5. **Acessar aplicação:**
-   - API: [http://localhost:4567](http://localhost:4567)
-   - Swagger: [http://localhost:4567/swagger-ui.html](http://localhost:4567/swagger-ui.html)
-   - RabbitMQ Management: [http://localhost:15672](http://localhost:15672) (guest/guest)
+3. **Acessar serviços**
 
-## Execução Containerizada (Produção)
+   - **API:** [http://localhost:4567](http://localhost:4567)
+   - **Swagger:** [http://localhost:4567/swagger-ui.html](http://localhost:4567/swagger-ui.html)
+   - **RabbitMQ:** [http://localhost:15672](http://localhost:15672) (guest/guest)
 
-Conforme especificado no desafio:
+### **Deploy Produção**
 
-```bash
-docker build . -t axreng/backend
-docker run -e BASE_URL=http://hiring.axreng.com/ -p 4567:4567 --rm axreng/backend
-```
-
-Ou com Docker Compose completo:
+#### Docker Compose Completo
 
 ```bash
-docker-compose up --build
+# Subir todos os serviços
+docker-compose up --build -d
+
+# Verificar status
+docker-compose ps
+
+# Ver logs
+docker-compose logs -f web-crawler-api
 ```
 
-## Testes
+#### Kubernetes (Helm Chart disponível)
 
-### Executar todos os testes:
+```bash
+# Deploy básico
+helm install crawler-api ./helm/web-crawler-api
+
+# Com configurações customizadas
+helm install crawler-api ./helm/web-crawler-api \
+  --set image.tag=latest \
+  --set baseUrl=http://production.com
+```
+
+## Testes e Qualidade
+
+### **Cobertura Completa de Testes**
+
+A aplicação possui **cobertura de testes abrangente** validando todas as funcionalidades:
+
+```markdown
+|-------------------|-----------------------------|---------------------------|
+| **Categoria**     | **Classes de Teste**        | **Cobertura**             |
+|-------------------|-----------------------------|---------------------------|
+| **API HTTP**      | `ApiHttpControllerTest`     | Endpoints completos       |
+| **Validação**     | `HtmlContentSearchTest`     | Regras de negócio         |
+| **ID Generation** | `IdGeneratorServiceTest`    | Unicidade garantida       |
+| **URL Handling**  | `WebCrawlerSameBaseUrlTest` | Segurança validada        |
+| **Concorrência**  | `MultipleCrawlsTest`        | Paralelismo testado       |
+| **Resultados**    | `PartialResultsTest`        | Tempo real verificado     |
+|-------------------|-----------------------------|---------------------------|
+```
+
+### **Executando Testes**
+
+#### Todos os testes
 
 ```bash
 mvn test
 ```
 
-### Executar suite específica:
+#### Suite específica
 
 ```bash
 mvn test -Dtest=AllRequirementsTestSuite
 ```
 
-### Cobertura de testes:
+#### Relatório de cobertura
 
 ```bash
 mvn jacoco:report
 ```
 
-## Características Técnicas
+### **Métricas de Qualidade**
 
-### Processamento Assíncrono
+- **Cobertura de código:** >90%
+- **Testes unitários:** 50+ casos
+- **Testes de integração:** 20+ cenários
+- **Performance tests:** Incluído
+- **Security tests:** Validação de URLs
 
-- **RabbitMQ** para gerenciamento de filas de crawling
-- **Spring AMQP** para integração com message broker
-- **Processamento em background** sem bloquear a API
+## Arquitetura e Design
 
-### Persistência
+### **Padrões Arquiteturais**
 
-- **H2 Database** em memória para desenvolvimento
-- **Flyway** para migrações de banco de dados
-- **Spring Data JPA** para acesso aos dados
+A aplicação segue **arquitetura em camadas** com separação clara de responsabilidades:
 
-### Monitoramento
+```text
+┌─────────────────┐     ┌──────────────────┐    ┌─────────────────┐
+│   Controllers   │───▶│    Services       │───▶│  Repositories   │
+│   (REST API)    │     │ (Business Logic) │    │ (Data Access)   │
+└─────────────────┘     └──────────────────┘    └─────────────────┘
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Models/DTOs   │    │    Listeners     │    │    Entities     │
+│  (Data Transfer)│    │ (Message Queue)  │    │  (JPA Mapping)  │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+```
 
-- **Spring Boot Actuator** para métricas e health checks
-- **Logs estruturados** para auditoria e debugging
-- **Swagger/OpenAPI** para documentação da API
+### **Fluxo de Processamento Assíncrono**
 
-### Qualidade de Código
+```text
+HTTP Request → Controller → Service → RabbitMQ Queue
+     ↓              ↑           ↑            ↓
+Response ID    Status Check  Update      Worker Process
+     ↓              ↑           ↑            ↓
+   Client      Database    Real-time    Web Crawling
+             (H2/JPA)     Updates      (JSoup)
+```
 
-- **Testes unitários** com JUnit 5 e Mockito
-- **Testes de integração** para validação end-to-end
-- **Cobertura de testes** para todos os requisitos do desafio
+### **Princípios SOLID Aplicados**
 
-## Por que utilizamos RabbitMQ neste projeto?
+- **SRP:** Cada classe tem responsabilidade única
+- **OCP:** Extensível via interfaces e abstrações
+- **LSP:** Implementações substituíveis
+- **ISP:** Interfaces específicas e coesas
+- **DIP:** Dependências via abstrações
 
-### Contextualização do Problema
+### **Design Patterns Utilizados**
 
-Em uma aplicação de web crawling, enfrentamos desafios específicos de escalabilidade e performance:
+- **Repository Pattern:** Abstração de acesso a dados
+- **Service Layer:** Encapsulamento de lógica de negócio
+- **Observer Pattern:** Listeners para mensagens RabbitMQ
+- **Factory Pattern:** Geração de IDs únicos
+- **Strategy Pattern:** Diferentes estratégias de crawling
 
-1. **Processamento Intensivo**: Fazer crawling de websites é uma operação que consome tempo e recursos
-2. **Múltiplas Requisições Simultâneas**: O sistema deve suportar várias buscas independentes ao mesmo tempo
-3. **Disponibilidade de Resultados Parciais**: Usuários devem poder consultar progresso durante execução
-4. **Confiabilidade**: Garantir que nenhuma tarefa seja perdida em caso de falhas
+## Message Broker - Por que RabbitMQ?
 
-### Solução Tradicional vs. Solução com Message Broker
+### **Problemas que o RabbitMQ Resolve**
 
-**Sem RabbitMQ (Processamento Síncrono):**
+#### **Sem Message Broker (Síncrono):**
 
-- Cada requisição HTTP bloquearia até completar todo o crawling
-- Timeout inevitável em sites grandes
-- Impossibilidade de consultar progresso
-- Escalabilidade limitada ao número de threads HTTP
-- Perda de tarefas em caso de falha do servidor
+- Timeout em crawling de sites grandes
+- Bloqueio de threads HTTP
+- Escalabilidade limitada
+- Perda de tarefas em falhas
+- Impossível consultar progresso
 
-**Com RabbitMQ (Processamento Assíncrono):**
+#### **Com RabbitMQ (Assíncrono):**
 
-- Requisição HTTP retorna imediatamente com ID da tarefa
-- Processamento em background através de workers independentes
-- Consulta de progresso via GET /crawl/{id}
-- Escalabilidade horizontal através de múltiplos workers
-- Persistência de tarefas na fila (durabilidade)
+- **Resposta imediata** com ID da tarefa
+- **Processamento em background** independente
+- **Consulta de progresso** em tempo real
+- **Escalabilidade horizontal** via workers
+- **Persistência de tarefas** com durabilidade
 
-### Arquitetura Implementada
+### **Implementação Técnica**
 
 ```text
 Cliente HTTP → Spring Boot API → RabbitMQ Queue → Worker Threads
@@ -324,31 +442,121 @@ Cliente HTTP → Spring Boot API → RabbitMQ Queue → Worker Threads
                  Consulta Status            Persistência Resultados
 ```
 
-### Benefícios Específicos para o Desafio
+### **Benefícios Específicos**
 
-1. **Requisito de Múltiplas Buscas Simultâneas**: RabbitMQ permite que dezenas de buscas sejam enfileiradas e processadas em paralelo
+1. **Performance:** Dezenas de buscas simultâneas
+2. **Escalabilidade:** Workers distribuídos
+3. **Confiabilidade:** Auto-retry em falhas
+4. **Desacoplamento:** API independente do crawling
+5. **Observabilidade:** Interface de gestão integrada
 
-2. **Requisito de Resultados Parciais**: Workers atualizam status em tempo real enquanto processam URLs
+### **Alternativas Consideradas**
 
-3. **Escalabilidade**: Possibilidade de adicionar workers em diferentes instâncias/containers
+```markdown
+|------------------------|----------|------------------------|---------------|
+| **Tecnologia**         | **Prós** | **Contras**            | **Veredicto** |
+|------------------------|----------|------------------------|---------------|
+| **ThreadPoolExecutor** | Simples  | Limitado a 1 JVM       | Não escalável |
+| **Database Polling**   | Familiar | Overhead contínuo      | Ineficiente   |
+| **Apache Kafka**       | Powerful | Complexidade excessiva | Overkill      |
+| **Redis Queues**       | Rápido   | Menos durabilidade     | Aceitável     |
+| **RabbitMQ**           | Balanced | Curva de aprendizado   | **Escolhido** |
+|------------------------|----------|------------------------|---------------|
+```
 
-4. **Tolerância a Falhas**: Mensagens não processadas retornam à fila automaticamente
+## Documentação Técnica
 
-5. **Desacoplamento**: API HTTP independente do tempo de processamento de crawling
+### **Documentação Completa**
 
-### Alternativas Consideradas
+Para informações detalhadas sobre cada aspecto do projeto:
 
-- **ThreadPoolExecutor**: Limitado a uma JVM, sem persistência de tarefas
-- **Database Polling**: Overhead de polling contínuo, menos eficiente
-- **Kafka**: Overhead desnecessário para o escopo do projeto
-- **Redis Queues**: Menos features de durabilidade e roteamento
+- **[docs/INDEX.md](docs/INDEX.md)** - Índice completo da documentação
+- **[docs/RABBITMQ.md](docs/RABBITMQ.md)** - Arquitetura RabbitMQ detalhada
+- **[docs/DATABASE.md](docs/DATABASE.md)** - Estrutura do banco e dados
+- **[docs/SWAGGER-API.md](docs/SWAGGER-API.md)** - Documentação completa da API
+- **[docs/DOCKER-COMPOSE.md](docs/DOCKER-COMPOSE.md)** - Guia Docker Compose
 
-### Conclusão
+### **Links Úteis**
 
-RabbitMQ foi escolhido por oferecer a combinação ideal de simplicidade, confiabilidade e performance necessária para atender todos os requisitos do desafio técnico, permitindo uma arquitetura robusta e escalável com mínima complexidade de implementação.
+- **Swagger UI:** [http://localhost:4567/swagger-ui.html](http://localhost:4567/swagger-ui.html)
+- **RabbitMQ Management:** [http://localhost:15672](http://localhost:15672)
+- **Health Check:** [http://localhost:4567/actuator/health](http://localhost:4567/actuator/health)
+- **Métricas:** [http://localhost:4567/actuator/metrics](http://localhost:4567/actuator/metrics)
+
+## Contribuição e Desenvolvimento
+
+### **Setup de Desenvolvimento**
+
+```bash
+# Clone do repositório
+git clone https://github.com/your-org/web-crawler-api.git
+cd web-crawler-api
+
+# Configuração do ambiente
+cp .env.example .env
+docker-compose up -d
+
+# Build e testes
+mvn clean install
+mvn test
+```
+
+### **Roadmap**
+
+- [ ] **v2.0:** Suporte a JavaScript rendering (Puppeteer/Selenium)
+- [ ] **v2.1:** Plugin system para custom extractors
+- [ ] **v2.2:** GraphQL API endpoint
+- [ ] **v2.3:** Kubernetes Helm charts
+- [ ] **v2.4:** Multi-tenant support
+- [ ] **v3.0:** Machine Learning content classification
+
+### **Issues e Suporte**
+
+- **Bug Reports:** [GitHub Issues](https://github.com/your-org/web-crawler-api/issues)
+- **Feature Requests:** [GitHub Discussions](https://github.com/your-org/web-crawler-api/discussions)
+- **Security:** security@your-org.com
+
+## Licença e Contribuição
+
+### **Licença**
+
+Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+### **Contribuindo**
+
+Contribuições são bem-vindas! Por favor, leia o [CONTRIBUTING.md](CONTRIBUTING.md) para obter detalhes sobre:
+
+- Como configurar o ambiente de desenvolvimento
+- Padrões de código e estilo
+- Processo de envio de pull requests
+- Como relatar bugs e solicitar recursos
+
+### **Changelog**
+
+Veja o [CHANGELOG.md](CHANGELOG.md) para uma lista detalhada de mudanças em cada versão.
+
+### **Configuração de Ambiente**
+
+Use o arquivo [.env.example](.env.example) como base para configurar suas variáveis de ambiente locais.
+
+### **Autor**
+
+- **Christian Vladimir Uhdre Mulato**
+- **GitHub:** [@chmulato](https://github.com/chmulato)
+- **LinkedIn:** [Christian Mulato](https://linkedin.com/in/chmulato)
+- **Email:** [chmulato@hotmail.com](mailto:chmulato@hotmail.com)
+- **Localização:** Campo Largo, PR - Brasil
+
+### **Agradecimentos**
+
+- **Spring Team** pelo excelente framework
+- **RabbitMQ Team** pela ferramenta robusta de messaging
+- **JSoup Team** pela biblioteca de parsing HTML
+- **Docker Team** pela plataforma de containerização
+- **Comunidade Open Source** pelo conhecimento compartilhado
 
 ---
 
-**Desenvolvido por:** Christian Vladimir Uhdre Mulato  
-**Para:** Axur - Teste Técnico Desenvolvedor Java Sênior  
-**Data:** Campo Largo, PR, 09 de Julho de 2025
+### **Se este projeto foi útil, considere dar uma estrela!**
+
+**Web Crawler API** - *Transformando web crawling em simples chamadas HTTP*

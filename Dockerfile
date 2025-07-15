@@ -23,4 +23,4 @@ RUN mvn clean package -DskipTests
 EXPOSE 4567
 
 # Comando para executar a aplicação
-CMD ["java", "-jar", "target/backend-axur-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/backend-api-crawler-1.0-SNAPSHOT.jar"]

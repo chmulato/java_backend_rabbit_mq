@@ -12,7 +12,7 @@
     </parent>
 
     <groupId>com.mulato</groupId>
-    <artifactId>backend-axur</artifactId>
+    <artifactId>backend-api-crawler</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -120,7 +120,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.mulato.axur.Main</mainClass>
+                    <mainClass>com.mulato.api.Main</mainClass>
                 </configuration>
             </plugin>
             

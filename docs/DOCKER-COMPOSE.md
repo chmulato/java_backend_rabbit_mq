@@ -1,4 +1,4 @@
-# Docker Compose - Axur Web Crawler
+# Docker Compose - Web Crawler API
 
 ## Arquivos
 

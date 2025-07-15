@@ -49,7 +49,7 @@ spring-boot-*.jar
 logs/
 .env
 .env.local
-.env.example
+#.env.example
 .java-version
 .mvn
 

@@ -1,4 +1,4 @@
-# Massa de Dados - Axur Web Crawler
+# Massa de Dados - Web Crawler API
 
 ## Estrutura do Banco de Dados
 
@@ -122,7 +122,7 @@ Dados extras para desenvolvimento local:
 
 **Como usar:**
 
-1. Acesse H2 Console: http://localhost:4567/h2-console
+1. Acesse H2 Console: [http://localhost:4567/h2-console](http://localhost:4567/h2-console)
 2. Execute o conteúdo do arquivo manualmente
 
 ## Consultas Úteis

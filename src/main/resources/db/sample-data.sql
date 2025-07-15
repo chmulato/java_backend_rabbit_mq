@@ -8,7 +8,7 @@
 
 -- Cenário: Busca por 'java' com resultados variados
 INSERT INTO crawl_tasks (id, keyword, base_url, status, start_time, end_time, total_pages_visited, total_urls_found, created_at, updated_at) 
-VALUES ('java1234', 'java', 'http://hiring.axreng.com', 'done', 
+VALUES ('java1234', 'java', 'http://example.com', 'done', 
         DATEADD('DAY', -1, CURRENT_TIMESTAMP), 
         DATEADD('HOUR', -22, CURRENT_TIMESTAMP), 
         67, 15, 

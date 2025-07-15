@@ -58,7 +58,7 @@ spring:
 
 logging:
   level:
-    '[com.mulato.axur]': DEBUG
+    '[com.mulato.api]': DEBUG
     '[org.springframework.amqp]': DEBUG
     '[org.springframework.web]': DEBUG
     '[org.hibernate.SQL]': DEBUG
@@ -112,6 +112,6 @@ springdoc:
     display-request-duration: true
     show-extensions: true
     show-common-extensions: true
-  packages-to-scan: com.mulato.axur.controller
+  packages-to-scan: com.mulato.api.controller
   default-consumes-media-type: application/json
   default-produces-media-type: application/json

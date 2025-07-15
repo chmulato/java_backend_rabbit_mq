@@ -55,7 +55,7 @@ spring:
 
 logging:
   level:
-    '[com.mulato.axur]': INFO
+    '[com.mulato.api]': INFO
     '[org.springframework.amqp]': WARN
     '[org.springframework.web]': WARN
     '[org.hibernate.SQL]': WARN

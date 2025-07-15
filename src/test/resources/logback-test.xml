@@ -25,7 +25,7 @@
     </appender>
     
     <!-- Logger específico para testes unitários -->
-    <logger name="com.mulato.axur" level="DEBUG" additivity="false">
+    <logger name="com.mulato.api" level="DEBUG" additivity="false">
         <appender-ref ref="TEST_FILE"/>
         <appender-ref ref="CONSOLE"/>
     </logger>

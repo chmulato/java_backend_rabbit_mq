@@ -55,25 +55,25 @@
     </appender>
     
     <!-- Logger específico para crawling -->
-    <logger name="com.mulato.axur.service.WebCrawlerService" level="DEBUG" additivity="false">
+    <logger name="com.mulato.api.service.WebCrawlerService" level="DEBUG" additivity="false">
         <appender-ref ref="CRAWL_FILE"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
     
     <!-- Logger específico para mensageria -->
-    <logger name="com.mulato.axur.service.CrawlMessageService" level="DEBUG" additivity="false">
+    <logger name="com.mulato.api.service.CrawlMessageService" level="DEBUG" additivity="false">
         <appender-ref ref="CRAWL_FILE"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
     
     <!-- Logger específico para listener -->
-    <logger name="com.mulato.axur.listener.CrawlTaskListener" level="DEBUG" additivity="false">
+    <logger name="com.mulato.api.listener.CrawlTaskListener" level="DEBUG" additivity="false">
         <appender-ref ref="CRAWL_FILE"/>
         <appender-ref ref="CONSOLE"/>
     </logger>
     
     <!-- Logger para testes -->
-    <logger name="com.mulato.axur" level="DEBUG" additivity="false">
+    <logger name="com.mulato.api" level="DEBUG" additivity="false">
         <appender-ref ref="TEST_FILE"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="CONSOLE"/>

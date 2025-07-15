@@ -1,6 +1,6 @@
 # RabbitMQ - Message Broker para Processamento Assíncrono
 
-**Projeto:** Web Crawler API - Desafio Java Axur  
+**Projeto:** Web Crawler API  
 **Desenvolvedor:** Christian Vladimir Uhdre Mulato  
 
 ## Visão Geral
@@ -108,7 +108,7 @@ graph LR
 
 ### 1. **Configuração RabbitMQ**
 
-Arquivo: `src/main/java/com/mulato/axur/config/RabbitConfig.java`
+Arquivo: `src/main/java/com/mulato/api/config/RabbitConfig.java`
 
 ```java
 @Configuration
@@ -155,7 +155,7 @@ public class RabbitConfig {
 
 ### 2. **Produtor de Mensagens**
 
-Arquivo: `src/main/java/com/mulato/axur/service/CrawlMessageService.java`
+Arquivo: `src/main/java/com/mulato/api/service/CrawlMessageService.java`
 
 ```java
 @Service
@@ -186,7 +186,7 @@ public class CrawlMessageService {
 
 ### 3. **Consumidor de Mensagens**
 
-Arquivo: `src/main/java/com/mulato/axur/listener/CrawlTaskListener.java`
+Arquivo: `src/main/java/com/mulato/api/listener/CrawlTaskListener.java`
 
 ```java
 @Component
@@ -535,5 +535,5 @@ base sólida para crescimento e manutenção do sistema.
 ---
 
 **Desenvolvido por:** Christian Vladimir Uhdre Mulato  
-**Para:** Axur - Teste Técnico Desenvolvedor Java Sênior  
-**Data:** Campo Largo, PR, 09 de Julho de 2025
+**Desenvolvedor:** Christian Vladimir Uhdre Mulato  
+**Data:** Campo Largo, PR, 2025

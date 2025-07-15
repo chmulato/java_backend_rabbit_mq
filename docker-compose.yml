@@ -2,7 +2,7 @@ services:
   # RabbitMQ
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: axur-rabbitmq
+    container_name: web-crawler-rabbitmq
     ports:
       - "5672:5672"    # AMQP port
       - "15672:15672"  # Management UI
@@ -15,7 +15,7 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     networks:
-      - axur-network
+      - crawler-network
     healthcheck:
       test: ["CMD", "rabbitmqctl", "status"]
       interval: 30s
@@ -28,7 +28,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: axur-backend
+    container_name: web-crawler-api
     ports:
       - "4567:4567"
     environment:
@@ -49,9 +49,9 @@ services:
       rabbitmq:
         condition: service_healthy
     networks:
-      - axur-network
+      - crawler-network
     volumes:
-      - ./logs:/usr/src/axreng/logs
+      - ./logs:/usr/src/web-crawler/logs
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4567/actuator/health"]
@@ -64,5 +64,5 @@ volumes:
   rabbitmq_data:
 
 networks:
-  axur-network:
+  crawler-network:
     driver: bridge

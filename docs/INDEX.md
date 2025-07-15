@@ -1,14 +1,14 @@
 # Documentação Técnica - Web Crawler API
 
-**Projeto:** Desafio Java Axur  
+**Projeto:** Web Crawler API  
 **Desenvolvedor:** Christian Vladimir Uhdre Mulato  
 
 ## Índice de Documentações
 
 ### Requisitos e Especificações
 
-- **[DESAFIO_JAVA_AXUR.md](DESAFIO_JAVA_AXUR.md)** - Requisitos originais do teste técnico
-- **[DESAFIO_JAVA_AXUR.pdf](DESAFIO_JAVA_AXUR.pdf)** - Documento original do desafio (PDF)
+- **[docs/ARCHITECTURE.md](ARCHITECTURE.md)** - Documentação técnica da arquitetura
+- **[docs/TECHNICAL_SPECS.md](TECHNICAL_SPECS.md)** - Especificações técnicas detalhadas
 
 ### Banco de Dados
 
@@ -33,11 +33,12 @@ O projeto inclui scripts de automação para facilitar o setup:
 ## Estrutura do Projeto
 
 ```text
-axreng-test/
+java_backend_rabbit_mq/
 ├── README.md                           # Documentação principal
 ├── docs/                               # Documentações técnicas
 │   ├── INDEX.md                        # Este arquivo - índice de documentações
-│   ├── DESAFIO_JAVA_AXUR.md            # Requisitos originais do teste técnico
+│   ├── ARCHITECTURE.md                 # Documentação técnica da arquitetura
+│   ├── TECHNICAL_SPECS.md              # Especificações técnicas detalhadas
 │   ├── DATABASE.md                     # Estrutura do banco e massa de dados
 │   ├── SWAGGER-API.md                  # Documentação da API OpenAPI/Swagger
 │   ├── DOCKER-COMPOSE.md               # Guia completo do Docker Compose
@@ -70,7 +71,7 @@ axreng-test/
 ## Como Usar Esta Documentação
 
 1. **[README.md](../README.md)** - Comece aqui! Visão geral completa e instruções de execução
-2. **[DESAFIO_JAVA_AXUR.md](DESAFIO_JAVA_AXUR.md)** - Requisitos originais do teste técnico
+2. **[docs/ARCHITECTURE.md](ARCHITECTURE.md)** - Documentação técnica da arquitetura
 3. **[TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)** - **NOVO!** Documentação completa dos testes para
    todos os requisitos
 4. **[DATABASE.md](DATABASE.md)** - Estrutura do banco de dados e massa de dados
@@ -98,7 +99,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ```bash
 # 1. Clone e entre no diretório
-cd axreng-test
+cd web-crawler-api
 
 # 2. Execute com Docker Compose
 docker-compose up -d
@@ -147,8 +148,8 @@ docker-compose up -d rabbitmq
 docker ps | grep rabbitmq
 
 # 3. Executar aplicação Spring Boot localmente
-cd c:\dev\desafio_java_backend_axur
-set BASE_URL=http://hiring.axreng.com
+cd c:\dev\web_crawler_api
+set BASE_URL=http://example.com
 mvn spring-boot:run
 ```
 
@@ -216,7 +217,7 @@ mvn clean test jacoco:report
 mvn test -Dtest="ApiHttpTest"
 
 # Via Docker
-docker run --rm axreng/backend mvn test
+docker run --rm web-crawler-api/backend mvn test
 ```
 
 #### Desenvolvimento
@@ -226,7 +227,7 @@ docker run --rm axreng/backend mvn test
 mvn spring-boot:run
 
 # Build da imagem Docker
-docker build . -t axreng/backend
+docker build . -t web-crawler-api/backend
 
 # Verificar estrutura do projeto
 tree src/ || find src/ -type f -name "*.java"
@@ -247,24 +248,24 @@ curl http://localhost:4567/crawl/{id}
 curl http://localhost:4567/actuator/health
 ```
 
-## Novidade: Testes Automatizados Completos
+## Testes Automatizados Completos
 
-Este projeto agora possui **cobertura de testes automatizados para 100% dos requisitos** do desafio técnico:
+Este projeto possui **cobertura de testes automatizados para 100% das funcionalidades**:
 
 ### Cobertura por Requisito
 
 ```markdown
 |--------------------------|--------|---------------------------------|
-| Requisito                | Status | Arquivo de Teste                |
+| Funcionalidade           | Status | Arquivo de Teste                |
 |--------------------------|--------|---------------------------------|
-| 1. API HTTP              | OK     | `ApiHttpTest.java`              |
-| 2. Validação do termo    | OK     | `TermValidationTest.java`       |
-| 3. ID da busca           | OK     | `CrawlIdGenerationTest.java`    |
-| 4. URL base              | OK     | `BaseUrlConfigurationTest.java` |
-| 5. Múltiplas buscas      | OK     | `MultipleCrawlsTest.java`       |
-| 6. Resultados parciais   | OK     | `PartialResultsTest.java`       |
-| 7. Estrutura do projeto  | OK     | `ProjectStructureTest.java`     |
-| 8. Compilação e execução | OK     | `CompilationExecutionTest.java` |
+| API HTTP                 | OK     | `ApiHttpTest.java`              |
+| Validação do termo       | OK     | `TermValidationTest.java`       |
+| Geração de ID            | OK     | `CrawlIdGenerationTest.java`    |
+| Configuração de URL base | OK     | `BaseUrlConfigurationTest.java` |
+| Múltiplas buscas         | OK     | `MultipleCrawlsTest.java`       |
+| Resultados parciais      | OK     | `PartialResultsTest.java`       |
+| Estrutura do projeto     | OK     | `ProjectStructureTest.java`     |
+| Compilação e execução    | OK     | `CompilationExecutionTest.java` |
 |--------------------------|--------|---------------------------------|
 ```
 
@@ -288,16 +289,16 @@ mvn test -Dtest="TermValidationTest"    # Requisito 2
 # ... etc
 
 # Via Docker
-docker run --rm axreng/backend mvn test
+docker run --rm web-crawler-api/backend mvn test
 ```
 
 **Documentação completa:** [TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)
 
-## Avaliação Técnica
+## Destaques Técnicos
 
 ### Pontos de Destaque
 
-1. **100% de Cobertura**: Todos os 8 requisitos do desafio possuem testes automatizados
+1. **100% de Cobertura**: Todas as funcionalidades possuem testes automatizados
 2. **Documentação Completa**: Swagger/OpenAPI, guias técnicos e documentação de testes
 3. **Containerização**: Docker multi-stage build e Docker Compose com orquestração completa
 4. **Scripts de Automação**: Setup automatizado para facilitar avaliação e desenvolvimento
@@ -316,7 +317,7 @@ docker run --rm axreng/backend mvn test
 ### Estrutura de Arquivos de Teste
 
 ```text
-src/test/java/com/mulato/axur/
+src/test/java/com/mulato/api/
 ├── AllRequirementsTestSuite.java       # Suite que executa todos os testes
 ├── controller/
 │   └── ApiHttpTest.java                # Requisito 1: API HTTP
@@ -338,6 +339,6 @@ src/test/java/com/mulato/axur/
 ---
 
 **Desenvolvido por:** Christian Vladimir Uhdre Mulato  
-**Para:** Axur - Teste Técnico Desenvolvedor Java Sênior  
-**Data:** Campo Largo, PR, 09 de Julho de 2025  
-**Repositório:** [GitHub](https://github.com/christianmulato/axreng-test)
+**Desenvolvedor:** Christian Vladimir Uhdre Mulato  
+**Data:** Campo Largo, PR, 15 de Julho de 2025  
+**Repositório:** [GitHub](https://github.com/chmulato/java_backend_rabbit_mq)

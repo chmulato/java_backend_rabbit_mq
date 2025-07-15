@@ -229,5 +229,5 @@ Cada endpoint documenta:
 ---
 
 **Desenvolvido por:** Christian Vladimir Uhdre Mulato  
-**Empresa:** Axur  
+**Desenvolvedor:** Christian Vladimir Uhdre Mulato  
 **Teste Técnico:** Desenvolvedor Java Sênior
