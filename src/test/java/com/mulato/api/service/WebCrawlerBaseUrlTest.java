@@ -46,7 +46,7 @@ public class WebCrawlerBaseUrlTest {
         boolean differentHost = (boolean) ReflectionTestUtils.invokeMethod(
                 webCrawlerService, 
                 "isSameBaseUrl", 
-                "http://example.com/page.html", 
+                "http://different-example.com/page.html", 
                 baseUrl
         );
         assertFalse(differentHost, "URLs com hosts diferentes devem ser consideradas de bases diferentes");
