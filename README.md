@@ -4,6 +4,13 @@
 **Versão:** 1.0.0  
 **Licença:** MIT
 
+## Documentação
+
+- **[Arquitetura](./docs/ARCHITECTURE.md)** - Visão detalhada da arquitetura do sistema
+- **[Especificações Técnicas](./docs/TECHNICAL_SPECS.md)** - Especificações técnicas completas
+- **[Documentação de Banco](./docs/DATABASE.md)** - Estrutura do banco de dados
+- **[Docker Compose](./docs/DOCKER-COMPOSE.md)** - Configuração de contêineres
+
 ## Diagrama de Arquitetura
 
 ![Diagrama de Arquitetura](./img/desafio.png)
@@ -12,15 +19,26 @@
 
 **API Crawler** é uma aplicação Java moderna e robusta para **web crawling automatizado**. A API permite navegar sistematicamente por websites em busca de termos específicos, retornando as URLs onde o conteúdo foi encontrado.
 
-### **Principais Características**
 
-- **API RESTful** com endpoints simples e 
-intuitivos
-- **Processamento assíncrono** para alta performance
-- **Múltiplas buscas simultâneas** independentes
-- **Resultados parciais** em tempo real
-- **Arquitetura escalável** com RabbitMQ
-- **Containerização** completa com Docker
+## Aplicabilidade (Explicando para uma criança)
+
+Imagine que você tem um robô mágico que sabe ler muito rápido. Se você der ao robô um livro enorme e pedir para ele encontrar todas as páginas que falam sobre "dinossauros", ele vai ler o livro inteiro em poucos segundos e te mostrar a lista das páginas onde encontrou essa palavra!
+
+Nosso Web Crawler API é como esse robô, mas para a internet. Ele funciona assim:
+
+1. **Você diz uma palavra especial** - Por exemplo, "dinossauros"
+2. **O robô começa a visitar páginas da internet** - Como se estivesse virando as páginas de um livro gigante
+3. **Quando encontra sua palavra, anota o endereço** - "Achei 'dinossauros' nesta página!"
+4. **Te mostra uma lista de todos os lugares** - "Aqui estão todas as páginas que falam sobre dinossauros!"
+
+É como ter um assistente super rápido que consegue procurar em milhares de páginas da internet enquanto você toma um copo de suco!
+
+### **O que nosso robô consegue fazer:**
+
+- **Ler muito rápido** - Ele visita muitas páginas ao mesmo tempo!
+- **Começar a te mostrar resultados antes de terminar** - Você não precisa esperar ele ler tudo
+- **Procurar várias palavras diferentes ao mesmo tempo** - Como ter vários robôs trabalhando juntos
+- **Nunca se perder ou ficar confuso** - Ele lembra de todas as páginas que já visitou
 
 ## Casos de Uso
 
@@ -514,7 +532,7 @@ mvn test
 
 - **Bug Reports:** [GitHub Issues](https://github.com/your-org/web-crawler-api/issues)
 - **Feature Requests:** [GitHub Discussions](https://github.com/your-org/web-crawler-api/discussions)
-- **Security:** security@your-org.com
+- **Security:** [security@example.com](mailto:security@example.com)
 
 ## Licença e Contribuição
 
