@@ -1,18 +1,21 @@
 # Documentação Técnica - Web Crawler API
 
-**Projeto:** Web Crawler A### Como Usar Esta Documentação
-
-1. **[README.md](../README.md)** - Comece aqui! Visão geral completa e instruções de execução
-2. **[ARCHITECTURE.md](ARCHITECTURE.md)** - Documentação técnica da arquitetura
-3. **[TECHNICAL_SPECS.md](TECHNICAL_SPECS.md)** - Especificações técnicas detalhadas
-4. **[TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)** - Documentação completa dos testes**Desenvolvedor:** Christian Vladimir Uhdre Mulato  
+**Projeto:** Web Crawler API  
+**Desenvolvedor:** Christian Vladimir Uhdre Mulato  
+**Versão:** 1.0.0  
+**Licença:** MIT
 
 ## Índice de Documentações
 
 ### Requisitos e Especificações
 
-- **[docs/ARCHITECTURE.md](ARCHITECTURE.md)** - Documentação técnica da arquitetura
-- **[docs/TECHNICAL_SPECS.md](TECHNICAL_SPECS.md)** - Especificações técnicas detalhadas
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Documentação técnica da arquitetura
+- **[TECHNICAL_SPECS.md](TECHNICAL_SPECS.md)** - Especificações técnicas detalhadas
+
+### Testes e Qualidade
+
+- **[TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)** - Documentação completa dos testes
+- **[TEST-RESULTS.md](TEST-RESULTS.md)** - Resultados da execução dos testes
 
 ### Banco de Dados
 
@@ -75,13 +78,13 @@ java_backend_rabbit_mq/
 ## Como Usar Esta Documentação
 
 1. **[README.md](../README.md)** - Comece aqui! Visão geral completa e instruções de execução
-2. **[docs/ARCHITECTURE.md](ARCHITECTURE.md)** - Documentação técnica da arquitetura
-3. **[TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)** - **NOVO!** Documentação completa dos testes para
-   todos os requisitos
-4. **[DATABASE.md](DATABASE.md)** - Estrutura do banco de dados e massa de dados
-5. **[SWAGGER-API.md](SWAGGER-API.md)** - Documentação da API com OpenAPI/Swagger
-6. **[DOCKER-COMPOSE.md](DOCKER-COMPOSE.md)** - Execução em containers Docker
-7. **[UTF8-CONFIG.md](UTF8-CONFIG.md)** - Configurações de encoding UTF-8
+2. **[ARCHITECTURE.md](ARCHITECTURE.md)** - Documentação técnica da arquitetura
+3. **[TECHNICAL_SPECS.md](TECHNICAL_SPECS.md)** - Especificações técnicas detalhadas
+4. **[TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)** - Documentação completa dos testes
+5. **[TEST-RESULTS.md](TEST-RESULTS.md)** - Resultados da execução dos testes
+6. **[DATABASE.md](DATABASE.md)** - Estrutura do banco de dados e massa de dados
+7. **[SWAGGER-API.md](SWAGGER-API.md)** - Documentação da API com OpenAPI/Swagger
+8. **[DOCKER-COMPOSE.md](DOCKER-COMPOSE.md)** - Execução em containers Docker
 
 ## Navegação Rápida
 
@@ -276,8 +279,11 @@ Este projeto possui **cobertura de testes automatizados para 100% das funcionali
 ### Estatísticas
 
 - **10 arquivos de teste** criados
-- **50+ métodos de teste** implementados
-- **8/8 requisitos cobertos** (100%)
+- **78 testes executados** com sucesso
+- **92.7% de cobertura** de linhas de código
+- **95.3% de cobertura** de métodos
+- **100% de cobertura** de classes
+- **87.4% de cobertura** de complexidade ciclomática
 - **Tipos**: Unitários, integração, E2E
 - **Cenários**: Positivos, negativos, edge cases, concorrência
 
@@ -296,7 +302,8 @@ mvn test -Dtest="TermValidationTest"    # Requisito 2
 docker run --rm web-crawler-api/backend mvn test
 ```
 
-**Documentação completa:** [TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)
+**Documentação completa:** [TESTES-COBERTURA-COMPLETA.md](TESTES-COBERTURA-COMPLETA.md)  
+**Resultados da execução:** [TEST-RESULTS.md](TEST-RESULTS.md)
 
 ## Destaques Técnicos
 
@@ -343,6 +350,6 @@ src/test/java/com/mulato/api/
 ---
 
 **Desenvolvido por:** Christian Vladimir Uhdre Mulato  
-**Desenvolvedor:** Christian Vladimir Uhdre Mulato  
 **Data:** Campo Largo, PR, 15 de Julho de 2025  
-**Repositório:** [GitHub](https://github.com/chmulato/java_backend_rabbit_mq)
+**Repositório:** [GitHub](https://github.com/chmulato/java_backend_rabbit_mq)  
+**Licença:** [MIT](../LICENSE)
