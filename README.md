@@ -19,7 +19,6 @@
 
 **API Crawler** é uma aplicação Java moderna e robusta para **web crawling automatizado**. A API permite navegar sistematicamente por websites em busca de termos específicos, retornando as URLs onde o conteúdo foi encontrado.
 
-
 ## Aplicabilidade (Explicando para uma criança)
 
 Imagine que você tem um robô mágico que sabe ler muito rápido. Se você der ao robô um livro enorme e pedir para ele encontrar todas as páginas que falam sobre "dinossauros", ele vai ler o livro inteiro em poucos segundos e te mostrar a lista das páginas onde encontrou essa palavra!
