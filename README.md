@@ -10,6 +10,8 @@
 - **[Especificações Técnicas](./docs/TECHNICAL_SPECS.md)** - Especificações técnicas completas
 - **[Documentação de Banco](./docs/DATABASE.md)** - Estrutura do banco de dados
 - **[Docker Compose](./docs/DOCKER-COMPOSE.md)** - Configuração de contêineres
+- **[Testes e Cobertura](./docs/TESTES-COBERTURA-COMPLETA.md)** - Documentação completa dos testes
+- **[Resultados dos Testes](./docs/TEST-RESULTS.md)** - Resultados da execução dos testes
 
 ## Diagrama de Arquitetura
 
