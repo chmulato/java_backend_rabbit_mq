@@ -357,6 +357,25 @@ A aplicação possui **cobertura de testes abrangente** validando todas as funci
 
 ### **Executando Testes**
 
+#### Resultado da Execução
+
+**Status:** [OK] Testes executados com sucesso
+
+```bash
+Results:
+Tests run: 78, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+```
+
+#### Cobertura de Código
+
+- **Linhas:** 92.7% (1,584 de 1,708 linhas)
+- **Classes:** 100% (41 de 41 classes)
+- **Métodos:** 95.3% (183 de 192 métodos)
+
 #### Todos os testes
 
 ```bash
